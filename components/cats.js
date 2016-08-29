@@ -3,7 +3,7 @@ import React from 'react'
 function Cats (props) {
   return (
     <ul>
-      {props.cats.map(function (cat, index) {
+      {props.catsfoobar.map(function (cat, index) {
          return (
            <li key={index}>
              {cat.name}
