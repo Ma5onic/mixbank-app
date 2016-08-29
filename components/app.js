@@ -1,13 +1,14 @@
 import React from 'react'
-import VetClinic from '../components/vetClinic'
-import Shop from '../components/shop'
+import Account from '../components/account'
+import TransactionsByAccount from '../connectors/TransactionsByAccount'
+
 
 function App (props) {
   return (
     <div>
       <h1>Welcome to {props.name}</h1>
-      <VetClinic />
-      <Shop />
+
+      <TransactionsByAccount />
     </div>
   )
 }
