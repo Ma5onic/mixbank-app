@@ -20,7 +20,7 @@ class Account extends React.Component {
             )
           }
         )}</ul>
-          <h2>$ balance goes here...</h2>
+          <h2>Balance is ${ (this.calculateBalance(this.props.transactions))/100 }</h2>
 
       </div>
     )

@@ -12,7 +12,7 @@ const initialState = {
       transactions:[
         {
           id:503,
-          amount: 456,
+          amount: -456,
           description: 'purchase bk',
           from_account_id: 1,
           to_account_id: 2

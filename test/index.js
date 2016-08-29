@@ -18,3 +18,12 @@ test('calculateBalance uses transactions to calculate balance', function (t) {
   t.equal(expectedBalance, actualBalance)
   t.end()
 })
+
+const testArray2 = [ {amount: -400}, {amount: 56700} ]
+
+test('calculateBalance does not automatically pass test', function (t) {
+  const testAccount = new Account
+  const actualBalance = testAccount.calculateBalance(testArray2)
+  t.notEqual(expectedBalance, actualBalance)
+  t.end()
+})
