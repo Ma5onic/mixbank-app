@@ -6,13 +6,26 @@ import { Provider } from 'react-redux'
 import App from './components/app'
 
 const initialState = {
-  vetClinic: {
-    cats: [{name: 'fluffy'}]
-  },
-  shop: {
-    cats: [{name: 'kitty'}],
-    dogs: [{name: 'pup'}]
-  }
+  account:
+    {
+      id: 1,
+      transactions:[
+        {
+          id:503,
+          amount: -456,
+          description: 'purchase bk',
+          from_account_id: 1,
+          to_account_id: 2
+        },
+        {
+          id:504,
+          amount: 56700,
+          description: 'weekly pay from bk',
+          from_account_id: 2,
+          to_account_id: 1
+        }
+      ]
+    }
 }
 
 const reducer = function (state = initialState , action) {
@@ -23,7 +36,7 @@ const store = createStore(reducer)
 
 render(
   <Provider store={store}>
-    <App name='Pet store' />
+    <App name='Mix Bank' />
   </Provider>,
   document.querySelector('main')
 )
