@@ -1,32 +1,6 @@
-const express = require('express')
-const path = require('path')
-const db = require ('./data/db')
+var app = require('./app')
 
-const app = express()
-
-const PORT = 9876
-
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.get('/api/v1/accounts/:id/transactions', function(req, res) {
-  var id = req.params.id
-  db.getTransactionsByAccountId(id)
-  .then(function (data) {
-    res.send(
-      {
-        account:{
-          id: id,
-          transactions: data
-        }
-      }
-    )
-  })
-})
-
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
-
+const PORT = process.env.PORT || 8080
 
 app.listen(PORT, function() {
   console.log('server is running and listening on port', PORT)
