@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "budo . -d --serve bundle.js --live",
-    "build": "watchify . -o bundle.js -g uglifyify",
+    "build": "watchify . -o public/bundle.js -g uglifyify",
     "test": "browserify test/index.js | node | tap-spec",
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
     "push": "gh-pages -d dist",
@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/pietgeursen/connect-fun",
   "dependencies": {
+    "express": "^4.14.0",
+    "path": "^0.12.7",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2"
   },
