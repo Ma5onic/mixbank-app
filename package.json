@@ -4,7 +4,7 @@
   "description": "it's a real sweet app",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "browserify . -o public/bundle.js -g uglifyify && node server.js",
     "build": "watchify . -o public/bundle.js -g uglifyify",
     "test": "browserify test/index.js | node | tap-spec",
     "test2": "node test/server.js | tap-spec",
