@@ -9,9 +9,17 @@ const PORT = 9876
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/v1/accounts/:id/transactions', function(req, res) {
-  db.getTransactionsByAccountId(req.params.id)
+  var id = req.params.id
+  db.getTransactionsByAccountId(id)
   .then(function (data) {
-    res.send(data)
+    res.send(
+      {
+        account:{
+          id: id,
+          transactions: data
+        }
+      }
+    )
   })
 })
 
