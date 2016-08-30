@@ -11,7 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAccountInfo: () => { dispatch(fetchAccountInfo(1)) }
+    fetchAccountInfo: (id) => { dispatch(fetchAccountInfo(id)) }      // this is redux-thunk accepting a function
+    // fetchAccountInfo: (id) => { fetchAccountInfo(id)(dispatch) }   // how redux-thunk works under the hood
+
   }
 }
 
@@ -19,4 +21,5 @@ const TransactionsByAccount = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Account)
+
 export default TransactionsByAccount

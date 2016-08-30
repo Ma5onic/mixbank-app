@@ -13,7 +13,7 @@ const initialState = {
       transactions:[
         {
           id:503,
-          amount: -456,
+          amount: -666,
           description: 'purchase bk',
           from_account_id: 1,
           to_account_id: 2
@@ -30,7 +30,7 @@ const initialState = {
 }
 
 
-const reducer = function (state = initialState , action) {
+const reducer = function (state = initialState, action) {
   switch (action.type) {
 
     case 'RECEIVE_ACCOUNT_INFO':

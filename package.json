@@ -4,8 +4,10 @@
   "description": "it's a real sweet app",
   "main": "index.js",
   "scripts": {
-    "start": "browserify . -o public/bundle.js -g uglifyify && node server.js",
-    "build": "watchify . -o public/bundle.js -g uglifyify",
+    "start": "node server.js",
+    "postinstall": "npm run build",
+    "build": "browserify . -o public/bundle.js -g uglifyify",
+    "watch": "watchify . -o public/bundle.js -d",
     "test": "browserify test/index.js | node | tap-spec",
     "test2": "node test/server.js | tap-spec",
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
