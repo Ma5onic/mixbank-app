@@ -29,8 +29,17 @@ const initialState = {
     }
 }
 
+
 const reducer = function (state = initialState , action) {
-  return state
+  switch (action.type) {
+
+    case 'RECEIVE_ACCOUNT_INFO':
+    const newState = Object.assign( {}, state, {account: action.payload.account} )
+    return newState
+
+    default:
+    return state
+  }
 }
 
 const store = createStore(

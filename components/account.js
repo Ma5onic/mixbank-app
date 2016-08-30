@@ -3,6 +3,10 @@ import React from 'react'
 
 class Account extends React.Component {
 
+  componentDidMount(){
+    console.log('this is the props!',this.props);
+  }
+
   calculateBalance(transactionsArray) {
   return transactionsArray.map( transaction => transaction.amount )
                             .reduce( (prev, curr) => prev + curr )
