@@ -8,6 +8,10 @@ class Account extends React.Component {
   }
 
   calculateBalance(transactionsArray) {
+    if (transactionsArray.length === 0) {
+      return 0
+    }
+
     return transactionsArray.map( transaction => transaction.amount )
                             .reduce( (prev, curr) => prev + curr )
   }
