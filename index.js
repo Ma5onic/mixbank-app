@@ -1,7 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
 
 import App from './components/app'
 
@@ -9,30 +10,27 @@ const initialState = {
   account:
     {
       id: 1,
-      transactions:[
-        {
-          id:503,
-          amount: -456,
-          description: 'purchase bk',
-          from_account_id: 1,
-          to_account_id: 2
-        },
-        {
-          id:504,
-          amount: 56700,
-          description: 'weekly pay from bk',
-          from_account_id: 2,
-          to_account_id: 1
-        }
-      ]
+      transactions:[]
     }
 }
 
-const reducer = function (state = initialState , action) {
-  return state
+
+const reducer = function (state = initialState, action) {
+  switch (action.type) {
+
+    case 'RECEIVE_ACCOUNT_INFO':
+    const newState = Object.assign( {}, state, {account: action.payload.account} )
+    return newState
+
+    default:
+    return state
+  }
 }
 
-const store = createStore(reducer)
+const store = createStore(
+  reducer,
+  applyMiddleware(thunkMiddleware)
+)
 
 render(
   <Provider store={store}>

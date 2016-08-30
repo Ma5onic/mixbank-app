@@ -4,8 +4,10 @@
   "description": "it's a real sweet app",
   "main": "index.js",
   "scripts": {
-    "start": "browserify . -o public/bundle.js -g uglifyify && node server.js",
-    "build": "watchify . -o public/bundle.js -g uglifyify",
+    "start": "node server.js",
+    "postinstall": "npm run build",
+    "build": "browserify . -o public/bundle.js -g uglifyify",
+    "watch": "watchify . -o public/bundle.js -d",
     "test": "browserify test/index.js | node | tap-spec",
     "test2": "node test/server.js | tap-spec",
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
@@ -28,26 +30,29 @@
   },
   "homepage": "https://github.com/pietgeursen/connect-fun",
   "dependencies": {
-    "express": "^4.14.0",
-    "knex": "^0.11.10",
-    "path": "^0.12.7",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "sqlite3": "^3.1.4"
-  },
-  "devDependencies": {
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "budo": "^8.2.0",
-    "gh-pages": "^0.11.0",
+    "express": "^4.14.0",
+    "knex": "^0.11.10",
+    "path": "^0.12.7",
+    "pg": "^6.1.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
+    "sqlite3": "^3.1.4",
+    "superagent": "^2.2.0",
+    "uglifyify": "^3.0.1"
+  },
+  "devDependencies": {
+    "budo": "^8.2.0",
+    "gh-pages": "^0.11.0",
     "supertest": "^2.0.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
-    "uglifyify": "^3.0.1",
     "watchify": "^3.7.0"
   }
 }

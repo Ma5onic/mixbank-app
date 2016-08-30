@@ -1,16 +1,24 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import Account from '../components/account'
 import TransactionsByAccount from '../connectors/TransactionsByAccount'
 
+class App extends React.Component {
 
-function App (props) {
-  return (
-    <div>
-      <h1>Welcome to {props.name}</h1>
+  // componentDidMount() {
+  //   console.log("this is props when App component mounts: ", this.props);
+  // }
 
-      <TransactionsByAccount />
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <h1>Welcome to {this.props.name}</h1>
+
+        <TransactionsByAccount />
+      </div>
+    )
+  }
+
 }
 
 export default App
