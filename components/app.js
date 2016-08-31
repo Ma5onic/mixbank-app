@@ -5,9 +5,10 @@ import TransactionsByAccount from '../connectors/TransactionsByAccount'
 
 class App extends React.Component {
 
-  // componentDidMount() {
-  //   console.log("this is props when App component mounts: ", this.props);
-  // }
+  componentDidMount() {
+    this.props.fetchUserInfo (session.user_id)
+    console.log("this is props when App component mounts: ", this.props);
+  }
 
   render() {
     return (

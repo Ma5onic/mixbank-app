@@ -1,12 +1,20 @@
 const express = require('express')
 const path = require('path')
 const db = require ('./data/db')
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const session = require('express-session')
 
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.use(session({
+  secret: 'my secret for more secret flavoured cookies',
+  maxAge: 1000*60*2,    // 2 minutes
+  resave: true,         // read about this option: https://www.npmjs.com/package/express-session#resave
+  saveUninitialized: false
+}))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -25,15 +33,37 @@ app.get('/api/v1/accounts/:id/transactions', function(req, res) {
   })
 })
 
+app.get('/api/v1/users/:id/accounts', function(req, res) {
+  var id = Number(req.params.id)
+  db.findAccountsByUserId(id)
+  .then(function (data) {
+    res.send(
+      {
+        id: id,
+      }
+    )
+  })
+})
+
 app.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))
 })
 
 app.post('/login', function(req, res) {
-  console.log("this is the login stuff: ", req.body)
   password = req.body.password
   userName = req.body.userName
   console.log("this is the login stuff: ", password, userName)
+  db.findIdByUsername( {userName: userName, password: password} )
+    .then( function(user_id) {
+      if (user_id) {
+        req.session.userName = userName
+        req.session.user_id = user_id
+        res.redirect('/')
+      }
+      else {
+        res.send('Oops wrong name or password')
+      }
+    })
 })
 
 app.get('*', function (req, res) {
