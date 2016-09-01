@@ -5,16 +5,19 @@ import TransactionsByAccount from '../connectors/TransactionsByAccount'
 
 class App extends React.Component {
 
-  // componentDidMount() {
-  //   console.log("this is props when App component mounts: ", this.props);
-  // }
+  constructor(props){
+    super(props)
+  }
+
+  componentDidMount() {
+    this.props.getAccountId()
+  }
 
   render() {
     return (
       <div>
-        <h1>Welcome to {this.props.name}</h1>
-
-        <TransactionsByAccount />
+        <h1>Welcome to Mix Bank!</h1>
+        {this.props.account_id ? <TransactionsByAccount /> : null }
       </div>
     )
   }

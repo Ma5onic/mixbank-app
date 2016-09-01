@@ -4,28 +4,9 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 
+import AccountsByUser from './connectors/AccountsByUser'
 import App from './components/app'
-
-const initialState = {
-  account:
-    {
-      id: 1,
-      transactions:[]
-    }
-}
-
-
-const reducer = function (state = initialState, action) {
-  switch (action.type) {
-
-    case 'RECEIVE_ACCOUNT_INFO':
-    const newState = Object.assign( {}, state, {account: action.payload.account} )
-    return newState
-
-    default:
-    return state
-  }
-}
+import reducer from './reducers/reducer'
 
 const store = createStore(
   reducer,
@@ -34,7 +15,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App name='Mix Bank' />
+    <AccountsByUser />
   </Provider>,
   document.querySelector('main')
 )

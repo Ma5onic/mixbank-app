@@ -1,26 +1,53 @@
 import request from 'superagent'
 
-const receiveAccountInfo = (payload) => {
+//uses the user_id stored in the session to get the account_id via the API
+const getAccountId = () => {
+  return (dispatch) => {
+    request
+      .get(`/api/v1/user/accounts`)
+      .end( (err, res) => {
+        if (err) {
+          console.log("Bother!", err)
+          return
+        }
+        dispatch(receiveAccountId(res.body))
+      })
+  }
+}
+
+// action for bringing the account id into state
+const receiveAccountId = (payload) => {
   return {
-    type: 'RECEIVE_ACCOUNT_INFO',
+    type: 'RECEIVE_ACCOUNT_ID',
     payload: payload
   }
 }
 
-const fetchAccountInfo = (account_id) => {
+//uses account id to get transactions via API
+const fetchAccountTransactions = (account_id) => {
   return (dispatch) => {
-    request.get(`/api/v1/accounts/${account_id}/transactions`)
+    request.get(`/api/v1/user/accounts/${account_id}/transactions`)
       .end( (err, res) => {
         if (err) {
           console.log("Bother, something went wrong", err)
           return
         }
-        dispatch(receiveAccountInfo(res.body))
+        dispatch(receiveAccountTransactions(res.body))
       })
   }
 }
 
+//populates the transactions array based on the account id
+const receiveAccountTransactions = (payload) => {
+  return {
+    type: 'RECEIVE_ACCOUNT_TRANSACTIONS',
+    payload: payload
+  }
+}
+
 export {
-  receiveAccountInfo,
-  fetchAccountInfo
+  receiveAccountTransactions,
+  fetchAccountTransactions,
+  receiveAccountId,
+  getAccountId
 }
