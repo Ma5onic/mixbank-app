@@ -4,7 +4,7 @@ import React from 'react'
 class Account extends React.Component {
 
   componentDidMount(){
-    this.props.fetchAccountInfo(1)
+     this.props.fetchAccountInfo(this.props.account_id)
   }
 
   calculateBalance(transactionsArray) {

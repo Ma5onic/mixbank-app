@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use(session({
+  name: 'testcookie',
   secret: 'my secret for more secret flavoured cookies',
   maxAge: 1000*60*2,    // 2 minutes
   resave: true,         // read about this option: https://www.npmjs.com/package/express-session#resave
@@ -33,13 +34,13 @@ app.get('/api/v1/accounts/:id/transactions', function(req, res) {
   })
 })
 
-app.get('/api/v1/users/:id/accounts', function(req, res) {
-  var id = Number(req.params.id)
+app.get('/api/v1/user/accounts', function(req, res) {
+  var id = Number(req.session.user_id)
   db.findAccountsByUserId(id)
   .then(function (data) {
     res.send(
       {
-        id: id,
+        account_id: data,
       }
     )
   })
@@ -52,7 +53,6 @@ app.get('/login', function(req, res) {
 app.post('/login', function(req, res) {
   password = req.body.password
   userName = req.body.userName
-  console.log("this is the login stuff: ", password, userName)
   db.findIdByUsername( {userName: userName, password: password} )
     .then( function(user_id) {
       if (user_id) {

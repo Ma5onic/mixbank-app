@@ -5,7 +5,8 @@ import {fetchAccountInfo} from '../actions/index'
 
 const mapStateToProps = (state) => {
   return {
-    transactions: state.account.transactions
+    transactions: state.account.transactions,
+    account_id: state.account.id
   }
 }
 

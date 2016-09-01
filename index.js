@@ -8,9 +8,10 @@ import AccountsByUser from './connectors/AccountsByUser'
 import App from './components/app'
 
 const initialState = {
+  user_id: null,
   account:
     {
-      id: 3,
+      id: null,
       transactions:[]
     }
 }
@@ -31,13 +32,15 @@ const reducer = function (state = initialState, action) {
 
     case 'RECEIVE_USER_INFO':
     newState = Object.assign( {}, state )
-    newState.account.id = action.payload.id
+    newState.account.id = action.payload.account_id
     return newState
 
     default:
     return state
   }
 }
+
+
 
 const store = createStore(
   reducer,

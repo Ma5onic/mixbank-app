@@ -5,17 +5,21 @@ import TransactionsByAccount from '../connectors/TransactionsByAccount'
 
 class App extends React.Component {
 
+  constructor(props){
+    super(props)
+  }
+
+
   componentDidMount() {
-    this.props.fetchUserInfo (session.user_id)
-    console.log("this is props when App component mounts: ", this.props);
+    this.props.fetchUserInfo() //returns account numbers
+
   }
 
   render() {
     return (
       <div>
         <h1>Welcome to {this.props.name}</h1>
-
-        <TransactionsByAccount />
+        {this.props.account_id ? <TransactionsByAccount /> : null }
       </div>
     )
   }

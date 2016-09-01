@@ -22,7 +22,6 @@ function findAccountsByUserId (user_id) {
   return knex('accounts')
     .where( 'user_id', user_id)
     .then ( function (data) {
-      console.log(data);
       if (data[0]) return data[0].id //currently assumes only one account per user
       else return
     })
