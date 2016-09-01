@@ -34,6 +34,7 @@ app.get('/api/v1/accounts/:id/transactions', function(req, res) {
   })
 })
 
+//takes user_id from the session, and returns the account_id as object
 app.get('/api/v1/user/accounts', function(req, res) {
   var id = Number(req.session.user_id)
   db.findAccountsByUserId(id)
@@ -57,7 +58,7 @@ app.get('/login', function(req, res) {
 app.post('/login', function(req, res) {
   password = req.body.password
   userName = req.body.userName
-  db.findIdByUsername( {userName: userName, password: password} )
+  db.findUserIdByUserName( {userName: userName, password: password} )
     .then( function(user_id) {
       if (user_id) {
         req.session.userName = userName

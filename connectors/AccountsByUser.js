@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import App from '../components/app'
-import { fetchUserInfo } from '../actions/index'
+import { getAccountId } from '../actions/index'
 
 const mapStateToProps = (state) => {
   return {
@@ -12,9 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserInfo: () => { dispatch(fetchUserInfo()) }      // this is redux-thunk accepting a function
-    // fetchAccountInfo: (id) => { fetchAccountInfo(id)(dispatch) }   // how redux-thunk works under the hood
-
+    getAccountId: () => { dispatch(getAccountId()) }
   }
 }
 

@@ -9,10 +9,8 @@ class App extends React.Component {
     super(props)
   }
 
-
   componentDidMount() {
-    this.props.fetchUserInfo() //returns account numbers
-
+    this.props.getAccountId()
   }
 
   render() {

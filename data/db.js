@@ -4,7 +4,7 @@ var config = require ('../knexfile')[env]
 var knex = require ('knex') (config)
 
 
-function findIdByUsername (userObj) {
+function findUserIdByUserName (userObj) {
   return knex('users')
     .where( {userName: userObj.userName, password: userObj.password} )
     .then ( function (data) {
@@ -31,6 +31,6 @@ function getTransactionsByAccountId (id) {
 
 module.exports = {
   getTransactionsByAccountId,
-  findIdByUsername,
+  findUserIdByUserName,
   findAccountsByUserId
 }
