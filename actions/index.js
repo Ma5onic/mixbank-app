@@ -1,7 +1,6 @@
 import request from 'superagent'
 
-//function used by App component to get the account id
-//based on the user stored in the session
+//uses the user_id stored in the session to get the account_id via the API
 const getAccountId = () => {
   return (dispatch) => {
     request
@@ -24,17 +23,10 @@ const receiveAccountId = (payload) => {
   }
 }
 
-//populates the transactions array based on the account id
-const receiveAccountTransactions = (payload) => {
-  return {
-    type: 'RECEIVE_ACCOUNT_TRANSACTIONS',
-    payload: payload
-  }
-}
-
+//uses account id to get transactions via API
 const fetchAccountTransactions = (account_id) => {
   return (dispatch) => {
-    request.get(`/api/v1/accounts/${account_id}/transactions`)
+    request.get(`/api/v1/user/accounts/${account_id}/transactions`)
       .end( (err, res) => {
         if (err) {
           console.log("Bother, something went wrong", err)
@@ -42,6 +34,14 @@ const fetchAccountTransactions = (account_id) => {
         }
         dispatch(receiveAccountTransactions(res.body))
       })
+  }
+}
+
+//populates the transactions array based on the account id
+const receiveAccountTransactions = (payload) => {
+  return {
+    type: 'RECEIVE_ACCOUNT_TRANSACTIONS',
+    payload: payload
   }
 }
 

@@ -19,7 +19,7 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/api/v1/accounts/:id/transactions', function(req, res) {
+app.get('/api/v1/user/accounts/:id/transactions', function(req, res) {
   var id = Number(req.params.id)
   db.getTransactionsByAccountId(id)
   .then(function (data) {
@@ -38,12 +38,10 @@ app.get('/api/v1/accounts/:id/transactions', function(req, res) {
 app.get('/api/v1/user/accounts', function(req, res) {
   var id = Number(req.session.user_id)
   db.findAccountsByUserId(id)
-  .then(function (data) {
-    res.send(
-      {
-        account_id: data,
-      }
-    )
+    .then(function (data) {
+      res.send(
+        { account_id: data }
+      )
   })
 })
 

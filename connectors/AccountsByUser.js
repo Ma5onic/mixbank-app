@@ -6,7 +6,7 @@ import { getAccountId } from '../actions/index'
 const mapStateToProps = (state) => {
   return {
     account_id: state.account.id,
-    user_id: state.user_id
+    // user_id: state.user_id
   }
 }
 
