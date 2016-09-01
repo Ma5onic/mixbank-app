@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome to {this.props.name}</h1>
+        <h1>Welcome to Mix Bank!</h1>
         {this.props.account_id ? <TransactionsByAccount /> : null }
       </div>
     )

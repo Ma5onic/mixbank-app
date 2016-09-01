@@ -58,10 +58,10 @@ app.post('/login', function(req, res) {
       if (user_id) {
         req.session.userName = userName
         req.session.user_id = user_id
-        res.redirect('/')
+        res.redirect('/' + userName)
       }
       else {
-        res.send('Oops wrong name or password')
+        res.send('Oops wrong name or password - go back to the login page and try again')
       }
     })
 })

@@ -8,7 +8,6 @@ import AccountsByUser from './connectors/AccountsByUser'
 import App from './components/app'
 
 const initialState = {
-  user_id: null,
   account:
     {
       id: null,

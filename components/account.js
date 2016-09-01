@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 class Account extends React.Component {
 
   componentDidMount(){
@@ -11,26 +10,25 @@ class Account extends React.Component {
     if (transactionsArray.length === 0) {
       return 0
     }
-
-    return transactionsArray.map( transaction => transaction.amount )
-                            .reduce( (prev, curr) => prev + curr )
+    return transactionsArray
+      .map( transaction => transaction.amount )
+      .reduce( (prev, curr) => prev + curr )
   }
 
   render() {
     return (
       <div>
-        <h1>The Account bit of the app</h1>
+        <h2>Your transactions are:</h2>
           <ul>{this.props.transactions.map(function (transaction, index) {
-          return (
-            <p key={index}>
-            {transaction.description}  ${transaction.amount/100}
-            </p>
-            )
-          }
-        )}
+            return (
+              <p key={index}>
+              {transaction.description}  ${transaction.amount/100}
+              </p>
+              )
+            }
+          )}
         </ul>
-        <h2>Balance is ${ (this.calculateBalance(this.props.transactions))/100 }</h2>
-
+        <h2>And your balance is ${ (this.calculateBalance(this.props.transactions))/100 }</h2>
       </div>
     )
   }
