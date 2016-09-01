@@ -46,10 +46,14 @@ app.get('/api/v1/user/accounts', function(req, res) {
   })
 })
 
+//get route for log in page (server-side)
 app.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))
 })
 
+//login post route takes in a user object with name and password
+//runs db method to get a user id to match
+//post route saves user's name and id to the session
 app.post('/login', function(req, res) {
   password = req.body.password
   userName = req.body.userName
