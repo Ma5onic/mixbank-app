@@ -4,6 +4,8 @@ const db = require ('./data/db')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 
+const api = require('./routes/api')
+
 var bcrypt = require('bcrypt')
 const saltRounds = 10
 
@@ -22,31 +24,7 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/api/v1/user/accounts/:id/transactions', function(req, res) {
-  var id = Number(req.params.id)
-  db.getTransactionsByAccountId(id)
-  .then(function (data) {
-    res.send(
-      {
-        account:{
-          id: id,
-          transactions: data
-        }
-      }
-    )
-  })
-})
-
-//takes user_id from the session, and returns the account_id as object
-app.get('/api/v1/user/accounts', function(req, res) {
-  var id = Number(req.session.user_id)
-  db.findAccountsByUserId(id)
-    .then(function (data) {
-      res.send(
-        { account_id: data }
-      )
-  })
-})
+app.use('/api/v1', api)
 
 //get route for log in page (server-side)
 app.get('/login', function(req, res) {
@@ -55,7 +33,7 @@ app.get('/login', function(req, res) {
 
 //login post route takes in a user object with name and password
 //runs db method to get a user id to match
-//post route saves user's name and id to the session
+//saves user's name and id to the session
 app.post('/login', function(req, res) {
   var userName = req.body.userName
   var password = req.body.password
@@ -64,8 +42,6 @@ app.post('/login', function(req, res) {
     .then( function(data) {
       var hashedPassword = data.password
       var user_id = data.id
-       //get the hashedPassword out
-  //    console.log("the three things from the login post route: ", userName, password, hashedPassword);
       bcrypt.compare(password, hashedPassword, function(err, result) {
         if (result) {
           req.session.userName = userName
@@ -78,9 +54,6 @@ app.post('/login', function(req, res) {
       })
     })
 })
-
-
-
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
