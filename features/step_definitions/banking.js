@@ -19,7 +19,7 @@ module.exports = function () {
 
   this.Then('I am asked to check my password and sign in again', () => {
     var actualText = browser.getText('p')
-    expect(actualText).toEqual('Oops wrong name or password') 
+    expect(actualText).toEqual('Oops wrong name or password')
   })
 
   this.Then(/^I am taken to the main page$/, () => {
@@ -31,5 +31,6 @@ module.exports = function () {
     var actualText = browser.getText('h1')
     expect(actualText).toEqual(text)
   })
+
 
 }
