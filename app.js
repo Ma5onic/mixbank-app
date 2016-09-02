@@ -4,6 +4,9 @@ const db = require ('./data/db')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 
+var bcrypt = require('bcrypt')
+const saltRounds = 10
+
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -54,20 +57,30 @@ app.get('/login', function(req, res) {
 //runs db method to get a user id to match
 //post route saves user's name and id to the session
 app.post('/login', function(req, res) {
-  var password = req.body.password
   var userName = req.body.userName
-  db.findUserIdByUserName( {userName: userName, password: password} )
-    .then( function(user_id) {
-      if (user_id) {
-        req.session.userName = userName
-        req.session.user_id = user_id
-        res.redirect('/' + userName)
-      }
-      else {
-        res.send('Oops wrong name or password - go back to the login page and try again')
-      }
+  var password = req.body.password
+//find the row in the database by the userName
+  db.findUserIdByUserName(userName) //will return the row as an object
+    .then( function(data) {
+      var hashedPassword = data.password
+      var user_id = data.id
+       //get the hashedPassword out
+  //    console.log("the three things from the login post route: ", userName, password, hashedPassword);
+      bcrypt.compare(password, hashedPassword, function(err, result) {
+        if (result) {
+          req.session.userName = userName
+          req.session.user_id = user_id
+          res.redirect('/' + userName)
+        }
+        else {
+          res.send(`<p>Oops wrong name or password</p>`)
+          }
+      })
     })
 })
+
+
+
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))

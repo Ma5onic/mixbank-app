@@ -4,11 +4,11 @@ var config = require ('../knexfile')[env]
 var knex = require ('knex') (config)
 
 
-function findUserIdByUserName (userObj) {
+function findUserIdByUserName (name) {
   return knex('users')
-    .where( {userName: userObj.userName, password: userObj.password} )
+    .where( 'userName', name )
     .then ( function (data) {
-      if (data[0]) return data[0].id
+      if (data[0]) return data[0]
       else return
     })
 }
