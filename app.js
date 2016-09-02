@@ -65,7 +65,7 @@ app.post('/login', function(req, res) {
       var hashedPassword = data.password
       var user_id = data.id
        //get the hashedPassword out
-      console.log("the three things from the login post route: ", userName, password, hashedPassword);
+  //    console.log("the three things from the login post route: ", userName, password, hashedPassword);
       bcrypt.compare(password, hashedPassword, function(err, result) {
         if (result) {
           req.session.userName = userName
@@ -73,7 +73,7 @@ app.post('/login', function(req, res) {
           res.redirect('/' + userName)
         }
         else {
-          res.send('Oops wrong name or password - go back to the login page and try again')
+          res.send(`<p>Oops wrong name or password</p>`)
           }
       })
     })
