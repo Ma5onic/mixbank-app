@@ -54,8 +54,8 @@ app.get('/login', function(req, res) {
 //runs db method to get a user id to match
 //post route saves user's name and id to the session
 app.post('/login', function(req, res) {
-  password = req.body.password
-  userName = req.body.userName
+  var password = req.body.password
+  var userName = req.body.userName
   db.findUserIdByUserName( {userName: userName, password: password} )
     .then( function(user_id) {
       if (user_id) {

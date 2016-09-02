@@ -6,19 +6,19 @@ const config = require('../support/config')
 
 module.exports = function () {
 
-  this.Given(/^I am viewing the home page$/, () => {
-    browser.url(Url.format(extend(config.proxy, { pathname: '/' })))
+  this.Given(/^I am viewing the login page$/, () => {
+    browser.url(Url.format(extend(config.proxy, { pathname: '/login' })))
   })
 
-  this.When(/^I click on the counter belonging to "([^"]*)"$/, (personName) => {
-    browser.waitForExist('.counter')
-    browser.click(`.counter.${personName}`)
+  this.When('I enter "$string" and "$string" and press Enter', (name, passwd) => {
+    browser.waitForExist('.login')
+    browser.setValue('input[name="userName"]', 'name')
+    browser.setValue('input[name="password"]', 'passwd')
+    browser.keys(['Enter'])
   })
 
-  this.Then(/^the counter belonging to "([^"]*)" should read "([^"]*)"$/, function (personName, count, callback) {
-    const actualCounter = browser.getText(`.counter.${personName}`)
-    const expectedCounter = `${personName} score: ${count}`
+  this.Then(/^I am taken to the main page$/, () => {
+  browser.url(Url.format(extend(config.proxy, {pathname: '/'})))
 
-    assert.equal(actualCounter, expectedCounter, callback)
   })
 }
