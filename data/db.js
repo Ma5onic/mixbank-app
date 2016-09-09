@@ -19,7 +19,7 @@ function findAccountsByUserId (user_id) {
     .where( 'user_id', user_id)
     .then ( function (data) {
       if (data[0]) return data[0].id
-      else return asjdfhgasukdfjhasf
+      else return
     })
 }
 
